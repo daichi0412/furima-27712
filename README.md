@@ -4,38 +4,48 @@
 |name|string|null: false|
 |email|string|null: false|
 |password|string|null: false|
+|birthday|integer|null: false|
 ### Association
-- has many:items, through: users_items
-- has many: users_items
-- has one: purchases
-
-## users_itemsテーブル
-|Column|Type|Options|
-|------|----|-------|
-|user_id|integer|null: false, foreign_key: true|
-### Association
-- belongs_to: users
-- belongs_to: items
-
+- has many:items
+- has many: purchases
+- has one: address
 
 ## itemsテーブル
 |Column|Type|Options|
 |------|----|-------|
-|image|string|
 |name|string|null: false|
 |text|text|
-|price|string|
+|category|string|null: false|
+|status|string|null: false|
+|fee|string|null:false|
+|area|string|null: false|
+|days|string|null: false|
+|price|string|null: false|
 ### Association
-- has many: users, through: users_items
-- has many: users_items
-
+- belongs_to: users
 
 ## purchasesテーブル
 |Column|Type|Options|
 |------|----|-------|
-|credit|integer|null: false|
-|address|integer|null: false|
-|tel|integer|null: false|
+|comment|text|
 |user_id|integer|null: false, foreign_key: true|
 ### Association
 - belongs_to: users
+- has many: address, through: purchases_address
+
+## addressテーブル
+|Column|Type|Options|
+|------|----|-------|
+|address|integer|null: false|
+### Association
+- belongs_to: users
+- has many: purchases, through: purchases_address
+
+## purchase_addressテーブル
+|Column|Type|Options|
+|------|----|-------|
+|purchases_id|integer|null: false, foreign_key: true
+|address_id|integer|null: false, foreign_key: true
+### Associations
+- belongs_to: purchases
+- belongs_to: address
