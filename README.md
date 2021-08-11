@@ -24,7 +24,7 @@
 |fee_id|integer|null: false|
 |area_id|integer|null: false|
 |days_id|integer|null: false|
-|price|decimal|null: false|
+|price|integer|null: false|
 ### Association
 - belongs_to: user
 - has one: purchase
@@ -39,13 +39,13 @@
 - belongs_to: item
 - has one: address
 
-## addressテーブル
+## addressesテーブル
 |Column|Type|Options|
 |------|----|-------|
 |code|string|null: false|
-|prefectures|integer|null: false|
+|prefectures_id|integer|null: false|
 |city|string|null: false|
-|address|integer|null: false|
+|address|string|null: false|
 |building|string|
 |tel|string|null: false|
 ### Association
