@@ -23,7 +23,7 @@
 |status_id|integer|null: false|
 |fee_id|integer|null: false|
 |prefecture_id|integer|null: false|
-|day_id|integer|null: false|
+|scheduled_delivery_id|integer|null: false|
 |price|integer|null: false|
 ### Association
 - belongs_to: user
