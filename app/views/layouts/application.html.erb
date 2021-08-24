@@ -11,6 +11,16 @@
 </head>
 
 <body>
+    <% if user_signed_in? %>
+      <span><%= current_user.nickname %>
+        <li>
+          <%= link_to "マイページ", "/users/#{current_user.nickname}" %>
+        </li>
+      </span>
+    <% else %>
+        <%= link_to "", new_user_session_path, class: "post" %>
+        <%= link_to "", new_user_registration_path, class: "post" %>
+    <% end %>
   <%= yield %>
 </body>
 
