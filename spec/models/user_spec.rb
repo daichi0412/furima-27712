@@ -30,17 +30,28 @@ describe User do
       expect(user.errors[:password]).to include("can't be blank")
     end
 
-    it "is invalid without a encrypted_password" do
-      user = build(:user, encrypted_password: nil)
+    it "is invalid without a password_confirmation" do
+      user = build(:user, password: nil)
       user.valid?
-      expect(user.errors[:encrypted_password]).to include("can't be blank")
+      expect(user.errors[:password]).to include("can't be blank")
     end
 
+    it "is invalid with a password that include both letters and numbers" do
+      user = build(:user, password: "aaaaaa")
+      user.valid?
+      expect(user.errors[:password])
+    end
 
     it "is invalid without a last_name" do
       user = build(:user, last_name: nil)
       user.valid?
       expect(user.errors[:last_name]).to include("can't be blank")
+    end
+    
+    it "is invalid with a last_name that input full-width characters" do
+      user = build(:user, last_name: "ナカハラ")
+      user.valid?
+      expect(user.errors[:last_name])
     end
 
     it "is invalid without a first_name" do
@@ -49,10 +60,22 @@ describe User do
       expect(user.errors[:first_name]).to include("can't be blank")
     end
 
+    it "is invalid with a first_name that input full-width characters" do
+      user = build(:user, first_name: "ダイチ")
+      user.valid?
+      expect(user.errors[:first_name])
+    end
+
     it "is invalid without a pseudonym_last" do
       user = build(:user, pseudonym_last: nil)
       user.valid?
       expect(user.errors[:pseudonym_last]).to include("can't be blank")
+    end
+
+    it "is invalid with a pseudonym_last that input full-width katakana characters" do
+      user = build(:user, pseudonym_last: "中原")
+      user.valid?
+      expect(user.errors[:pseudonym_last])
     end
 
     it "is invalid without a pseudonym_first" do
@@ -60,11 +83,11 @@ describe User do
       user.valid?
       expect(user.errors[:pseudonym_first]).to include("can't be blank")
     end
-    
-    it "is invalid without a pseudonym_last" do
-      user = build(:user, pseudonym_last: nil)
+
+    it "is invalid with a pseudonym_first that input full-width katakana characters " do
+      user = build(:user, pseudonym_first: "大地")
       user.valid?
-      expect(user.errors[:pseudonym_last]).to include("can't be blank")
+      expect(user.errors[:pseudonym_first])
     end
 
     it "is invalid without a birthday" do
@@ -78,6 +101,5 @@ describe User do
       user.valid?
       expect(user.errors[:password]).to include("is too short (minimum is 6 characters)")
     end
-    
   end
 end
