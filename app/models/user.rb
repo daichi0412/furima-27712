@@ -5,8 +5,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
   with_options presence: true do
     validates :nickname
-    validates :last_name, format: { with: /\A[一-龥ぁ-ん]/, message: "is invalid.Input full-width characters." }
-    validates :first_name, format: { with: /\A[一-龥ぁ-ん]/, message: "is invalid.Input full-width characters" }
+    validates :last_name, format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: "is invalid.Input full-width characters." }
+    validates :first_name, format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: "is invalid.Input full-width characters" }
     validates :pseudonym_last, format: { with: /\A[ァ-ヶー－]+\z/, message: "is invalid.Input full-width katakana characters." }
     validates :pseudonym_first, format: { with: /\A[ァ-ヶー－]+\z/, message: "is invalid.Input full-width katakana characters." }
     validates :birthday
