@@ -11,5 +11,4 @@ FactoryBot.define do
     pseudonym_first       {"ダイチ"}
     birthday              {"1995/6/2"}
   end
-
 end
