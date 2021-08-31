@@ -8,13 +8,7 @@ RSpec.describe User, type: :model do
     context 'can save' do
       it "is valid with a nickname, email, encrypted_password, last_name, first_name, pseudonym_last, pseudonym_first, birthday" do
         @user.valid?
-        expect(@user.errors.full_messages)
-      end
-
-      it "is invalid with a password that has more than 6 characters " do
-        @user.password = 'aaaaaa'
-        @user.valid?
-        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password", "Password Include both letters and numbers.")
+        expect(@user).to be_valid
       end
     end
 
@@ -70,6 +64,12 @@ RSpec.describe User, type: :model do
       end
 
       it "is invalid with a password that include both letters and numbers" do
+        @user.password = 'aaaaaa'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password", "Password Include both letters and numbers.")
+      end
+
+      it "is invalid with a password that has more than 6 characters " do
         @user.password = 'aaaaaa'
         @user.valid?
         expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password", "Password Include both letters and numbers.")
