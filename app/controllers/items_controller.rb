@@ -25,9 +25,9 @@ class ItemsController < ApplicationController
   def edit
     if user_signed_in? && @item.present?
       if current_user.id == @item.user_id
-        redirect_to edit_item_path
+        render :edit
       else
-        render :index
+        redirect_to :index
       end
     end
   end
