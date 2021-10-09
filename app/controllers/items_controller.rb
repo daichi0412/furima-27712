@@ -23,6 +23,13 @@ class ItemsController < ApplicationController
   end
 
   def edit
+    if user_signed_in? && @item.present?
+      if current_user.id == @item.user_id
+        redirect_to edit_item_path
+      else
+        render :index
+      end
+    end
   end
 
   def update
