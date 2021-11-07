@@ -10,13 +10,9 @@ class PurchasesController < ApplicationController
     if current_user.id == @item.user_id
       redirect_to root_path
     end
-    if current_user.id == @item.user_id
-      redirect_to new
-    end
   end
   
   def create
-    binding.pry
     @address_purchase = AddressPurchase.new(purchase_params)
     if @address_purchase.valid?
       pay_item
