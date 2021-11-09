@@ -5,7 +5,7 @@ class PurchasesController < ApplicationController
   def index
     @address_purchase = AddressPurchase.new
     if current_user.id == @item.user_id
-      if @item.purchase.present?
+      if @item.purchase.nil?
         redirect_to root_path
       end
     end
