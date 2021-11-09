@@ -2,12 +2,20 @@ require 'rails_helper'
 
 RSpec.describe AddressPurchase, type: :model do
   before do
-    @address_purchase = FactoryBot.build(:address_purchase)
+    user = FactoryBot.create(:user)
+    item = FactoryBot.create(:item)
+    @address_purchase = FactoryBot.build(:address_purchase, user_id: user.id, item_id: item.id)
+    sleep 0.3
   end
 
   describe '#create' do
     context 'can save' do
-      it "is valid with a code, prefecture_id, city, address, tel, token" do
+      it "is valid with a code, prefecture_id, city, address, building, tel, token, user_id, item_id" do
+        expect(@address_purchase).to be_valid
+      end
+      
+      it "is valid without a building" do
+        @address_purchase.building = ''
         expect(@address_purchase).to be_valid
       end
     end
@@ -55,14 +63,20 @@ RSpec.describe AddressPurchase, type: :model do
         expect(@address_purchase.errors.full_messages).to include("Tel can't be blank")
       end
 
-      it "is invalid with a tel that has less than 11 characters" do
+      it "is invalid with a tel that has less than 11 numbers" do
         @address_purchase.tel = '090111111111'
         @address_purchase.valid?
         expect(@address_purchase.errors.full_messages).to include("Tel is invalid")
       end
 
-      it "is invalid without a tel input half-width numbers" do
+      it "is invalid without a tel that input half-width numbers" do
         @address_purchase.tel = '０９０１１１１１１１１'
+        @address_purchase.valid?
+        expect(@address_purchase.errors.full_messages).to include("Tel is invalid")
+      end
+
+      it "is invalid with a tel that input more than 9 numbers" do
+        @address_purchase.tel = '090111111'
         @address_purchase.valid?
         expect(@address_purchase.errors.full_messages).to include("Tel is invalid")
       end
@@ -72,5 +86,18 @@ RSpec.describe AddressPurchase, type: :model do
         @address_purchase.valid?
         expect(@address_purchase.errors.full_messages).to include("Token can't be blank")
       end
+
+      it "is invalid without a user_id" do
+        @address_purchase.user_id = nil
+        @address_purchase.valid?
+        expect(@address_purchase.errors.full_messages).to include("User can't be blank")
+      end
+
+      it "is invalid without a item_id" do
+        @address_purchase.item_id = nil
+        @address_purchase.valid?
+        expect(@address_purchase.errors.full_messages).to include("Item can't be blank")
+      end
     end
   end
+

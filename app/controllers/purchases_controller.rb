@@ -1,6 +1,6 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_user!, only: [:index]
-  before_action :set_item, only: [:show, :create, :index]
+  before_action :set_item, only: [:show, :create, :index, :edit]
 
   def index
     @address_purchase = AddressPurchase.new
@@ -22,13 +22,10 @@ class PurchasesController < ApplicationController
     end
   end
 
-  def show
-  end
-
   private
 
   def purchase_params
-    params.require(:address_purchase).permit(:code, :prefecture_id, :address, :city, :tel, :building, :user_id, :item_id, :token).merge(user_id: current_user.id, item_id: (params[:item_id]), token: (params[:token]))
+    params.require(:address_purchase).permit(:code, :prefecture_id, :address, :city, :tel, :building).merge(user_id: current_user.id, item_id: (params[:item_id]), token: (params[:token]))
   end
 
   def set_item
@@ -36,7 +33,7 @@ class PurchasesController < ApplicationController
   end
 
   def pay_item
-    Payjp.api_key = "sk_test_7a2d2793d6527fc913729a6e"
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY"]
       Payjp::Charge.create(
         amount: @item.price,
         card: purchase_params[:token],
