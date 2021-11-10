@@ -1,6 +1,6 @@
 class PurchasesController < ApplicationController
   before_action :authenticate_user!, only: [:index]
-  before_action :set_item, only: [:create, :index]
+  before_action :set_item, only: [:create, :index, :edit]
 
   def index
     @address_purchase = AddressPurchase.new
