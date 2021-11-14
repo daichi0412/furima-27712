@@ -23,7 +23,9 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    if current_user.id == @item.user_id || @item.purchase.nil?
+    if current_user.id == @item.user_id || @item.purchase.present?
+      render :edit
+    else
       redirect_to root_path
     end
   end
