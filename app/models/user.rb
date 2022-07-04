@@ -6,11 +6,13 @@ class User < ApplicationRecord
 
   has_many :items
   has_many :purchases
-  
+
   with_options presence: true do
     validates :nickname
     # validates :email, uniqueness: true
+    # ラストネームの制約
     validates :last_name, format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: "is invalid.Input full-width characters." }
+    # ファーストネームの制約
     validates :first_name, format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/, message: "is invalid.Input full-width characters" }
     validates :pseudonym_last, format: { with: /\A[ァ-ヶー－]+\z/, message: "is invalid.Input full-width katakana characters." }
     validates :pseudonym_first, format: { with: /\A[ァ-ヶー－]+\z/, message: "is invalid.Input full-width katakana characters." }
