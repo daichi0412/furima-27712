@@ -1,4 +1,5 @@
 class Category < ActiveHash::Base
+  # プルダウン形式で選ぶことができる。
   self.data = [
     { id: 1, name: '---' },
     { id: 2, name: 'レディース' },

@@ -1,4 +1,5 @@
 class Prefecture < ActiveHash::Base
+  # プルダウン形式で選ぶことができる。
   self.data = [
     { id: 1, name: '---' },
     { id: 2, name: '北海道' },

@@ -1,4 +1,5 @@
 class ItemsController < ApplicationController
+  # ユーザがログインしているかを確認し、ログインしていない場合はユーザをログインページにリダイレクトする。
   before_action :authenticate_user!, only: [:new, :edit]
   before_action :set_item, only: [:show, :edit, :update, :destroy]
 
